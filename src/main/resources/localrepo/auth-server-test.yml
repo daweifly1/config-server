@@ -1,0 +1,40 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:  http://localhost:9001/eureka/
+
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@192.168.1.30:1521:orcl
+    username: ydtest
+    password: ydtest
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    max-active: 20
+    max-idle: 8
+    min-idle: 8
+    initial-size: 10
+  redis:
+      host: 192.168.1.30
+      port: 6379
+      pool.max-active: 8
+  file:
+    download:
+      path: ./file/
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/oracle-mapper/*.xml
+
+logging:
+  file: ./authlog
+
+hystrix:
+    command:
+      default:
+        execution:
+          isolation:
+            thread:
+              timeoutInMilliseconds: 60000
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000

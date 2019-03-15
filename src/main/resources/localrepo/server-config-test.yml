@@ -1,0 +1,86 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone:  http://localhost:9001/eureka/
+
+spring:
+  session.store-type: none
+
+  rabbitmq:
+    host: 192.168.1.58
+    port: 5672
+    username: admin
+    password: yl123456
+    virtual-host: yl
+
+  datasource:
+    url: jdbc:oracle:thin:@192.168.1.30:1521:orcl
+    username: ydtest
+    password: ydtest
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    max-active: 20
+    max-idle: 8
+    min-idle: 8
+    initial-size: 10
+
+  redis:
+    host: 192.168.1.30
+    port: 6379
+    pool.max-active: 8
+
+  file:
+    download:
+      path: ./file/
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+downloadName: D:/ftp/test.txt
+
+logging:
+  file: ./mylogfile.log
+
+zuul:
+    routes:
+      api-a.path: /display/**
+      api-a.serviceId: display-service
+
+      api-b.path: /dts/**
+      api-b.serviceId: dts-service
+
+      api-c.path: /dcs/**
+      api-c.serviceId: dcs-service
+
+      api-d.path: /ucs/**
+      api-d.serviceId: ucs-service
+
+    host:
+      socket-timeout-millis: 60000
+      connect-timeout-millis: 60000
+
+hystrix:
+    command:
+      default:
+        execution:
+          isolation:
+            thread:
+              timeoutInMilliseconds: 60000
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
+yb:
+  security:
+    login:
+      url: /ucs/User/login
+    logout:
+      url: /ucs/User/logout
+    permit:
+      tag: /pub/
+    addAdmin:
+      url: /ucs/User/addAdmin
+
+appSql: select id,NAME as vulnName,HAZARD_LEVEL as hazardLevel,VULN_TYPE as vulnType,detail as vulnDescription,APP_ID as appId,APP_NAME as appName,status,HAS_REJECT as hasReject from
+deviceSql: select id,VULN_NAME as vulnName,HAZARD_LEVEL as hazardLevel,VULN_DESCRIPTION as vulnDescription,ASSET_IP as assetIp from
